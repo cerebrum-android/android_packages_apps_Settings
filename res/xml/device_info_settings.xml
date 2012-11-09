@@ -107,6 +107,12 @@
                 android:title="@string/fcc_equipment_id"
                 android:summary="@string/device_info_default"/>
                 
+        <!-- Cerebrum version -->
+        <Preference android:key="cerebrum_version"
+        		style="?android:preferenceInformationStyle"
+        		android:title="@string/cerebrum_version"
+        		android:summary="@string/cerebrum_version_default"/>
+                
         <!-- Device Baseband version -->
         <Preference android:key="baseband_version" 
                 style="?android:preferenceInformationStyle"
