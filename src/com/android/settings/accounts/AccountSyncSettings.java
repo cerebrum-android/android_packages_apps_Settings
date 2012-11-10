@@ -79,7 +79,7 @@ public class AccountSyncSettings extends AccountPreferenceBase {
     private Account[] mAccounts;
     private ArrayList<SyncStateCheckBoxPreference> mCheckBoxes =
                 new ArrayList<SyncStateCheckBoxPreference>();
-    private ArrayList<SyncAdapterType> mInvisibleAdapters = Lists.newArrayList();
+    private ArrayList<String> mInvisibleAdapters = Lists.newArrayList();
 
     @Override
     public Dialog onCreateDialog(final int id) {
@@ -321,11 +321,8 @@ public class AccountSyncSettings extends AccountPreferenceBase {
         }
         // plus whatever the system needs to sync, e.g., invisible sync adapters
         if (mAccount != null) {
-            for (SyncAdapterType syncAdapter : mInvisibleAdapters) {
-                // invisible sync adapters' account type should be same as current account type
-                if (syncAdapter.accountType.equals(mAccount.type)) {
-                    requestOrCancelSync(mAccount, syncAdapter.authority, startSync);
-                }
+            for (String authority : mInvisibleAdapters) {
+                requestOrCancelSync(mAccount, authority, startSync);
             }
         }
     }
@@ -455,7 +452,7 @@ public class AccountSyncSettings extends AccountPreferenceBase {
             } else {
                 // keep track of invisible sync adapters, so sync now forces
                 // them to sync as well.
-                mInvisibleAdapters.add(sa);
+                mInvisibleAdapters.add(sa.authority);
             }
         }
 

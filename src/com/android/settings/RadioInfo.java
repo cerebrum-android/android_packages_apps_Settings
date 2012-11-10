@@ -55,7 +55,6 @@ import android.widget.EditText;
 
 import com.android.internal.telephony.DataConnection;
 import com.android.internal.telephony.Phone;
-import com.android.internal.telephony.PhoneConstants;
 import com.android.internal.telephony.PhoneFactory;
 import com.android.internal.telephony.PhoneStateIntentReceiver;
 import com.android.internal.telephony.TelephonyProperties;
@@ -194,14 +193,9 @@ public class RadioInfo extends Activity {
                     ar= (AsyncResult) msg.obj;
                     if (ar.exception == null) {
                         int type = ((int[])ar.result)[0];
-                        if (type >= mPreferredNetworkLabels.length) {
-                            Log.e(TAG, "[RadioInfo] EVENT_QUERY_PREFERRED_TYPE_DONE: unknown " +
-                                    "type=" + type);
-                            type = mPreferredNetworkLabels.length - 1;
-                        }
                         preferredNetworkType.setSelection(type, true);
                     } else {
-                        preferredNetworkType.setSelection(mPreferredNetworkLabels.length - 1, true);
+                        preferredNetworkType.setSelection(8, true);
                     }
                     break;
                 case EVENT_SET_PREFERRED_TYPE_DONE:
@@ -552,7 +546,7 @@ public class RadioInfo extends Activity {
 
     private final void
     updatePhoneState() {
-        PhoneConstants.State state = mPhoneStateReceiver.getPhoneState();
+        Phone.State state = mPhoneStateReceiver.getPhoneState();
         Resources r = getResources();
         String display = r.getString(R.string.radioInfo_unknown);
 
@@ -1015,7 +1009,7 @@ public class RadioInfo extends Activity {
             mPreferredNetworkHandler = new AdapterView.OnItemSelectedListener() {
         public void onItemSelected(AdapterView parent, View v, int pos, long id) {
             Message msg = mHandler.obtainMessage(EVENT_SET_PREFERRED_TYPE_DONE);
-            if (pos>=0 && pos<=(mPreferredNetworkLabels.length - 2)) {
+            if (pos>=0 && pos<=7) { //IS THIS NEEDED to extend to the entire range of values
                 phone.setPreferredNetworkType(pos, msg);
             }
         }
@@ -1033,9 +1027,5 @@ public class RadioInfo extends Activity {
             "CDMA only",
             "EvDo only",
             "GSM/CDMA auto (PRL)",
-            "LTE/CDMA auto (PRL)",
-            "LTE/GSM auto (PRL)",
-            "LTE/GSM/CDMA auto (PRL)",
-            "LTE only",
             "Unknown"};
 }

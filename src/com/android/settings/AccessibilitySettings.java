@@ -179,9 +179,9 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
         super.onResume();
         loadInstalledServices();
         updateAllPreferences();
-
-        offerInstallAccessibilitySerivceOnce();
-
+        if (mServicesCategory.getPreference(0) == mNoServicesMessagePreference) {
+            offerInstallAccessibilitySerivceOnce();
+        }
         mSettingsPackageMonitor.register(getActivity(), getActivity().getMainLooper(), false);
         RotationPolicy.registerRotationPolicyListener(getActivity(),
                 mRotationPolicyListener);
@@ -465,17 +465,6 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
         final boolean offerInstallService = !preferences.getBoolean(
                 KEY_INSTALL_ACCESSIBILITY_SERVICE_OFFERED_ONCE, false);
         if (offerInstallService) {
-            String screenreaderMarketLink = SystemProperties.get(
-                    SYSTEM_PROPERTY_MARKET_URL,
-                    DEFAULT_SCREENREADER_MARKET_LINK);
-            Uri marketUri = Uri.parse(screenreaderMarketLink);
-            Intent marketIntent = new Intent(Intent.ACTION_VIEW, marketUri);
-
-            if (getPackageManager().resolveActivity(marketIntent, 0) == null) {
-                // Don't show the dialog if no market app is found/installed.
-                return;
-            }
-
             preferences.edit().putBoolean(KEY_INSTALL_ACCESSIBILITY_SERVICE_OFFERED_ONCE,
                     true).commit();
             // Notify user that they do not have any accessibility
@@ -777,7 +766,7 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
             }
             return new AlertDialog.Builder(getActivity())
                 .setTitle(title)
-                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setIcon(android.R.drawable.ic_dialog_alert)
                 .setMessage(message)
                 .setCancelable(true)
                 .setPositiveButton(android.R.string.ok, this)

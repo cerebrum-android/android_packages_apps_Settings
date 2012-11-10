@@ -17,6 +17,7 @@
 package com.android.settings;
 
 import static android.os.BatteryManager.BATTERY_STATUS_UNKNOWN;
+import static android.provider.Telephony.Intents.SPN_STRINGS_UPDATED_ACTION;
 
 import com.android.internal.telephony.TelephonyIntents;
 

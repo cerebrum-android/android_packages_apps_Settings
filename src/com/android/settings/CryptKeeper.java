@@ -56,7 +56,6 @@ import android.widget.TextView;
 
 import com.android.internal.telephony.ITelephony;
 import com.android.internal.telephony.Phone;
-import com.android.internal.telephony.PhoneConstants;
 
 import java.util.List;
 
@@ -638,7 +637,7 @@ public class CryptKeeper extends Activity implements TextView.OnEditorActionList
      */
     private final void setAirplaneModeIfNecessary() {
         final boolean isLteDevice =
-                TelephonyManager.getDefault().getLteOnCdmaMode() == PhoneConstants.LTE_ON_CDMA_TRUE;
+                TelephonyManager.getDefault().getLteOnCdmaMode() == Phone.LTE_ON_CDMA_TRUE;
         if (!isLteDevice) {
             Log.d(TAG, "Going into airplane mode.");
             Settings.System.putInt(getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 1);
