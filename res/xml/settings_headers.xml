@@ -140,6 +140,17 @@
         android:icon="@drawable/ic_settings_backup"
         android:title="@string/privacy_settings"
         android:id="@+id/privacy_settings" />
+        
+    <!-- CEREBRUM -->
+    <header android:title="@string/header_category_cerebrum" />
+
+    <!-- System -->
+    <header
+        android:id="@+id/system_settings"
+        android:icon="@drawable/ic_settings_system"
+        android:fragment="com.android.settings.SystemSettings"
+        android:title="@string/system_settings_title" />
+
 
     <!--  ACCOUNTS section -->
     <header
