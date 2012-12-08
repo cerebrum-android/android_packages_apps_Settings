@@ -23,5 +23,14 @@
         android:key="notification_drawer"
         android:fragment="com.android.settings.cerebrum.PowerWidget"
         android:title="@string/notification_drawer_title" />
+        
+    <PreferenceScreen
+    	android:key="ota_updater"
+    	android:title="@string/ota_updater" >
+		<intent
+			android:action="android.intent.action.MAIN"
+			android:targetPackage="com.otaupdater"
+			android:targetClass="com.otaupdater.OTAUpdaterActivity" />
+	</PreferenceScreen>
 
 </PreferenceScreen>

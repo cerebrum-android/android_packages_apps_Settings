@@ -4209,4 +4209,7 @@
     <!-- Power Widget, Haptic feedback #CM -->
     <string name="expanded_haptic_feedback_title">Haptic Feedback</string>
     <string name="expanded_haptic_feedback_summary">Enable/Disable haptic feedback.</string>
+    
+    <!-- OTA Updater -->
+    <string name="ota_updater">OTA Updater</string>
 </resources>
